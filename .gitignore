@@ -3,5 +3,7 @@ wa_credentials/
 .env
 media/*
 !media/.gitkeep
-src/*
+src/errors/*
+src/middleware/*
+src/webhooks/*
 wa_credentials/*

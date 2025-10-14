@@ -6,7 +6,7 @@
     "start": "tsx src/index.ts"
   },
   "author": {
-    "name": "pramtoxz",
+    "name": "Pramtoxz",
     "email": "pramuditometra@gmail.com"
   },
   "license": "ISC",
@@ -31,7 +31,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git@github.com:pramtoxz/wa-gateway.git"
+    "url": "git@github.com:Pramtoxz/wa-gateway.git"
   },
   "devDependencies": {
     "@types/node": "^22.10.1",

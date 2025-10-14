@@ -10,7 +10,7 @@ Built-in Webhook Support
 
 Panduan Memulai
 1. Clone Repository
-git clone https://github.com/pramtoxz/wa_gateway.git
+git clone https://github.com/Pramtoxz/wa_gateway.git
 2. Navigasi ke Folder Project
 cd wa_gateway
 3. Install Dependencies
