@@ -7,6 +7,7 @@ export type CreateWebhookProps = {
 
 export const webhookClient = axios.create({
   headers: {
-    key: env.KEY,
+    Authorization: `Bearer ${env.KEY}`,
+    Accept: "application/json",
   },
 });

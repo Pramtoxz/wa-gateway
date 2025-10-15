@@ -9,7 +9,7 @@ import { HTTPException } from "hono/http-exception";
 export const createSessionController = () => {
   const app = new Hono();
 
-  app.get("/", createKeyMiddleware(), async (c) => {
+  app.get("/", async (c) => {
     return c.json({
       data: whatsapp.getAllSession(),
     });
@@ -21,7 +21,6 @@ export const createSessionController = () => {
 
   app.post(
     "/start",
-    createKeyMiddleware(),
     requestValidator("json", startSessionSchema),
     async (c) => {
       const payload = c.req.valid("json");
@@ -59,7 +58,6 @@ export const createSessionController = () => {
   );
   app.get(
     "/start",
-    createKeyMiddleware(),
     requestValidator("query", startSessionSchema),
     async (c) => {
       const payload = c.req.valid("query");
@@ -83,16 +81,10 @@ export const createSessionController = () => {
       });
 
       if (qr) {
-        return c.render(`
-            <div id="qrcode"></div>
-
-            <script type="text/javascript">
-                let qr = '${await toDataURL(qr)}'
-                let image = new Image()
-                image.src = qr
-                document.body.appendChild(image)
-            </script>
-            `);
+        // Mengembalikan JSON agar konsisten dengan endpoint POST
+        return c.json({
+          qr: qr,
+        });
       }
 
       return c.json({
@@ -103,7 +95,7 @@ export const createSessionController = () => {
     }
   );
 
-  app.all("/logout", createKeyMiddleware(), async (c) => {
+  app.post("/logout", async (c) => {
     await whatsapp.deleteSession(
       c.req.query().session || (await c.req.json()).session || ""
     );

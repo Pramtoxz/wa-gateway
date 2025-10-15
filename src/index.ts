@@ -14,6 +14,7 @@ import { createWebhookMessage } from "./webhooks/message";
 import { createWebhookSession } from "./webhooks/session";
 import { createProfileController } from "./controllers/profile";
 import { serveStatic } from "@hono/node-server/serve-static";
+import { createKeyMiddleware } from "./middlewares/key.middleware";
 
 const app = new Hono();
 
@@ -36,6 +37,13 @@ app.use(
     root: "./",
   })
 );
+
+/**
+ * Protect all API routes
+ */
+app.use("/session/*", createKeyMiddleware());
+app.use("/message/*", createKeyMiddleware());
+app.use("/profile/*", createKeyMiddleware());
 
 /**
  * session routes
