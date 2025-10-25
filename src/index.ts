@@ -15,6 +15,7 @@ import { createWebhookSession } from "./webhooks/session";
 import { createProfileController } from "./controllers/profile";
 import { serveStatic } from "@hono/node-server/serve-static";
 import { createKeyMiddleware } from "./middlewares/key.middleware";
+import { messageQueueService } from "./services/message-queue.service";
 
 const app = new Hono();
 
@@ -72,6 +73,12 @@ serve(
 
 whastapp.onConnected((session) => {
   console.log(`session: '${session}' connected`);
+  messageQueueService.resumeQueue(session);
+});
+
+whastapp.onDisconnected((session) => {
+  console.log(`session: '${session}' disconnected`);
+  messageQueueService.pauseQueue(session);
 });
 
 // Implement Webhook
